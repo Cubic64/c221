@@ -30,7 +30,7 @@ const transporter = nodemailer.createTransport({
         pass: '',
     },
     secure: true,
-})
+});
 
 app.get("/", (req, res) => {
     res.redirect(`/${uuidv4()}`);
@@ -43,18 +43,17 @@ app.get("/:room", (req, res) => {
 app.post("/send-mail", (req, res) => {
     const to = req.body.to;
     const url = req.body.url;
-
     const mailData = {
-        from: "siddhanthnaidu81@gmail.com",
-        to : to,
+        from: "apoorv.goyal@whitehatjr.com",
+        to: to,
         subject: "Join the video chat with me!",
-        html: `<p>Hey there,</p><p>Come and join me for a video chat here -${url}</p>`
+        html: `<p>Hey there,</p><p>Come and join me for a video chat here - ${url}</p>`
     };
     transporter.sendMail(mailData, (error, info) => {
         if (error) {
             return console.log(error);
         }
-        res.status(200).send({ message: "Invitation Send!", message_id: info.message_id });
+        res.status(200).send({ message: "Invitation sent!", message_id: info.messageId });
     });
 })
 
